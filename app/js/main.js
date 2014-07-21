@@ -1,3 +1,5 @@
 var React = require('../../bower_components/react/react.min');
+var Board = require('./board');
 
-console.log('react!', React);
+var gameNode = document.getElementById('game');
+React.renderComponent(Board(), gameNode);
