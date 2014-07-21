@@ -4,7 +4,14 @@
   "dependencies":{
   },
   "devDependencies":{
+    "browserify":"",
     "gulp":"",
-    "gulp-mocha":""
+    "gulp-bower":"",
+    "gulp-mocha":"",
+    "gulp-react":"",
+    "gulp-rimraf":"",
+    "gulp-uglify":"",
+    "run-sequence":"",
+    "vinyl-source-stream":""
   }
 }
