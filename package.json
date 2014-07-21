@@ -1,0 +1,10 @@
+{
+  "name":"tic-tac-toe",
+  "private":true,
+  "dependencies":{
+  },
+  "devDependencies":{
+    "gulp":"",
+    "gulp-mocha":""
+  }
+}
