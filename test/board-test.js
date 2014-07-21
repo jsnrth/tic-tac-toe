@@ -127,5 +127,22 @@ describe('Board', function(){
                 /Invalid board/
             );
         });
+
+        it('can only play each cell one time', function(){
+            assert.throws(
+                function(){
+                    var board = [null, 'x', null, null, null, null, null, null, null];
+                    Board.update(board, 'x', 1);
+                },
+                /Cell already taken/
+            );
+        });
+    });
+
+    describe('Remaining moves', function(){
+        it('counts remaining moves', function(){
+            assert.equal(9, Board.remainingMoves([null, null, null, null, null, null, null, null, null]));
+            assert.equal(2, Board.remainingMoves(['x', null, 'o', 'x', null, 'x', 'o', 'x', 'o']));
+        });
     });
 });
