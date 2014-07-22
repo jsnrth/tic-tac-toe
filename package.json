@@ -11,10 +11,10 @@
     "gulp-less":"",
     "gulp-minify-css":"",
     "gulp-mocha":"",
-    "gulp-react":"",
     "gulp-rimraf":"",
     "gulp-sourcemaps":"",
     "gulp-uglify":"",
+    "reactify":"",
     "run-sequence":"",
     "vinyl-source-stream":""
   }

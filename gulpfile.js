@@ -4,7 +4,7 @@ var gulp = require('gulp');
 var less = require('gulp-less');
 var minifyCSS = require('gulp-minify-css');
 var mocha = require('gulp-mocha');
-var react = require('gulp-react');
+var reactify = require('reactify');
 var rimraf = require('gulp-rimraf');
 var runSequence = require('run-sequence');
 var source = require('vinyl-source-stream');
@@ -22,22 +22,12 @@ gulp.task('bower', function() {
   return bower();
 });
 
-gulp.task('build:jsx', function(){
-    return gulp.src('app/js/*.jsx')
-        .pipe(react())
-        .pipe(uglify())
-        .pipe(gulp.dest('./tmp/js'));
-});
-
 gulp.task('build:js', function(){
-    return gulp.src('app/js/*.js')
-        .pipe(uglify())
-        .pipe(gulp.dest('./tmp/js'));
-});
-
-gulp.task('build:main', function(){
-    return browserify('./tmp/js/main.js')
-        .bundle()
+    return browserify({
+        entries: ['./app/js/main.js'],
+        extensions: ['.jsx']})
+        .transform(reactify)
+        .bundle({debug: false})
         .pipe(source('main.js'))
         .pipe(gulp.dest('./dist'));
 });
@@ -60,9 +50,7 @@ gulp.task('build', function(callback){
     return runSequence(
         'clean',
         'bower',
-        ['build:jsx', 'build:js', 'build:css'],
-        'build:main',
-        'build:html',
+        ['build:js', 'build:css', 'build:html'],
         callback);
 });
 
