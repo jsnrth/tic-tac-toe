@@ -1,4 +1,4 @@
-var React = require('../../bower_components/react/react.min');
+/* global React */
 var Board = require('./board');
 
 var gameNode = document.getElementById('game');

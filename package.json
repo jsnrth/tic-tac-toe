@@ -13,9 +13,9 @@
     "gulp-mocha":"",
     "gulp-rimraf":"",
     "gulp-sourcemaps":"",
-    "gulp-uglify":"",
     "reactify":"",
     "run-sequence":"",
+    "uglifyify":"",
     "vinyl-source-stream":""
   }
 }

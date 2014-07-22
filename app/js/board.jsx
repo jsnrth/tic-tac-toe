@@ -1,4 +1,4 @@
-var React = require('../../bower_components/react/react.min');
+/* global React */
 
 module.exports = React.createClass({
     render: function(){

@@ -9,7 +9,7 @@ var rimraf = require('gulp-rimraf');
 var runSequence = require('run-sequence');
 var source = require('vinyl-source-stream');
 var sourceMaps = require('gulp-sourcemaps');
-var uglify = require('gulp-uglify');
+var uglifyify = require('uglifyify');
 
 gulp.task('clean', function(){
     return gulp.src(['tmp/*', 'dist/*'], {read: false})
@@ -22,12 +22,18 @@ gulp.task('bower', function() {
   return bower();
 });
 
+gulp.task('build:libs', function(){
+    return gulp.src('./bower_components/react/react.min.js')
+        .pipe(gulp.dest('./dist'));
+});
+
 gulp.task('build:js', function(){
     return browserify({
         entries: ['./app/js/main.js'],
         extensions: ['.jsx']})
         .transform(reactify)
-        .bundle({debug: false})
+        .transform(uglifyify)
+        .bundle()
         .pipe(source('main.js'))
         .pipe(gulp.dest('./dist'));
 });
@@ -50,7 +56,7 @@ gulp.task('build', function(callback){
     return runSequence(
         'clean',
         'bower',
-        ['build:js', 'build:css', 'build:html'],
+        ['build:libs', 'build:js', 'build:css', 'build:html'],
         callback);
 });
 
