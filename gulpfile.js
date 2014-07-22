@@ -1,11 +1,14 @@
 var bower = require('gulp-bower');
 var browserify = require('browserify');
 var gulp = require('gulp');
+var less = require('gulp-less');
+var minifyCSS = require('gulp-minify-css');
 var mocha = require('gulp-mocha');
 var react = require('gulp-react');
 var rimraf = require('gulp-rimraf');
 var runSequence = require('run-sequence');
 var source = require('vinyl-source-stream');
+var sourceMaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 
 gulp.task('clean', function(){
@@ -39,6 +42,15 @@ gulp.task('build:main', function(){
         .pipe(gulp.dest('./dist'));
 });
 
+gulp.task('build:css', function(){
+    return gulp.src('./app/css/main.less')
+        .pipe(sourceMaps.init())
+        .pipe(less())
+        .pipe(minifyCSS())
+        .pipe(sourceMaps.write('./'))
+        .pipe(gulp.dest('dist'));
+});
+
 gulp.task('build:html', function(){
     return gulp.src('app/*.html')
         .pipe(gulp.dest('dist'));
@@ -48,7 +60,7 @@ gulp.task('build', function(callback){
     return runSequence(
         'clean',
         'bower',
-        ['build:jsx', 'build:js'],
+        ['build:jsx', 'build:js', 'build:css'],
         'build:main',
         'build:html',
         callback);

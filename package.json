@@ -8,9 +8,12 @@
     "browserify":"",
     "gulp":"",
     "gulp-bower":"",
+    "gulp-less":"",
+    "gulp-minify-css":"",
     "gulp-mocha":"",
     "gulp-react":"",
     "gulp-rimraf":"",
+    "gulp-sourcemaps":"",
     "gulp-uglify":"",
     "run-sequence":"",
     "vinyl-source-stream":""
