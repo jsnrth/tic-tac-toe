@@ -70,6 +70,17 @@ gulp.task('build', function(callback){
         callback);
 });
 
+gulp.task('rebuild:mainjs', function(cb){
+    var runSequence = require('run-sequence');
+    return runSequence('build:mainjs', 'build:html', cb);
+});
+
+gulp.task('watch:mainjs', function(cb){
+    return gulp.watch(
+        ['./app/js/**/*.{js,jsx}', './lib/*.js'],
+        ['rebuild:mainjs']);
+});
+
 gulp.task('test', function(){
     var mocha = require('gulp-mocha');
     return gulp.src('test/**/*test.js', {read: false})
