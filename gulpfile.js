@@ -11,7 +11,7 @@ gulp.task('bower', function() {
     return bower();
 });
 
-gulp.task('build:libs', function(){
+gulp.task('build:libjs', function(){
     var browserify = require('browserify');
     var source = require('vinyl-source-stream');
     return browserify()
@@ -21,17 +21,17 @@ gulp.task('build:libs', function(){
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('build:js', function(){
+gulp.task('build:mainjs', function(){
     var browserify = require('browserify');
     var reactify = require('reactify');
     var source = require('vinyl-source-stream');
-    var uglifyify = require('uglifyify');
+    // var uglifyify = require('uglifyify');
     return browserify({
         entries: ['./app/js/main.js'],
         extensions: ['.jsx']})
         .external('react')
         .transform(reactify)
-        .transform(uglifyify)
+        // .transform(uglifyify)
         .bundle()
         .pipe(source('main.js'))
         .pipe(gulp.dest('./dist'));
@@ -46,19 +46,27 @@ gulp.task('build:css', function(){
         .pipe(less())
         .pipe(minify())
         .pipe(smaps.write('./'))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('build:html', function(){
-    return gulp.src('app/*.html')
-        .pipe(gulp.dest('dist'));
+    var usemin = require('gulp-usemin');
+    var rev = require('gulp-rev');
+    return gulp.src('./app/*.html')
+        .pipe(usemin({
+            css: [rev()],
+            jslib: [rev()],
+            jsapp: [rev()]
+        }))
+        .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('build', function(callback){
     var runSequence = require('run-sequence');
     return runSequence(
         ['clean', 'bower'],
-        ['build:libs', 'build:js', 'build:css', 'build:html'],
+        ['build:libjs', 'build:mainjs', 'build:css'],
+        ['build:html'],
         callback);
 });
 

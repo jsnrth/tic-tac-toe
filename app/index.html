@@ -2,11 +2,19 @@
 <html>
 <head>
     <title>Tic Tac Toe</title>
+    <!-- build:css(dist) /main.css -->
     <link rel="stylesheet" href="/main.css">
+    <!-- endbuild -->
 </head>
 <body>
     <div id="game"></div>
-    <script id="libs-js" src="/libs.js"></script>
-    <script id="main-js" src="/main.js"></script>
+
+    <!-- build:jslib(dist) /lib.js -->
+    <script src="/libs.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:jsmain(dist) /main.js -->
+    <script src="/main.js"></script>
+    <!-- endbuild -->
 </body>
 </html>
