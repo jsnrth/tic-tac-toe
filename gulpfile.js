@@ -27,7 +27,7 @@ gulp.task('build:mainjs', function(){
     var source = require('vinyl-source-stream');
     // var uglifyify = require('uglifyify');
     return browserify({
-        entries: ['./app/js/main.js'],
+        entries: ['./app/js/main.jsx'],
         extensions: ['.jsx']})
         .external('react')
         .transform(reactify)

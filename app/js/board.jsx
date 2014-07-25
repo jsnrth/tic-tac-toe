@@ -1,23 +1,40 @@
 var React = require('react');
 
 module.exports = React.createClass({
+    displayName: 'Board',
+
+    getBoard: function(){
+        return this.props.board;
+    },
+
+    getBoardPosition: function(index){
+        return this.getBoard()[index];
+    },
+
+    moveHandler: function(position){
+        var handleMove = this.props.handleMove;
+        return function(e){
+            return handleMove(position);
+        }
+    },
+
     render: function(){
         return (
             <div id="board">
                 <div className="row">
-                    <div className="cell" data-position="0">Hi!</div>
-                    <div className="cell" data-position="1">Hi!</div>
-                    <div className="cell" data-position="2">Hi!</div>
+                    <a className="cell" onClick={this.moveHandler(0)}>{this.getBoardPosition(0)}</a>
+                    <a className="cell" onClick={this.moveHandler(1)}>{this.getBoardPosition(1)}</a>
+                    <a className="cell" onClick={this.moveHandler(2)}>{this.getBoardPosition(2)}</a>
                 </div>
                 <div className="row">
-                    <div className="cell" data-position="3">Hi!</div>
-                    <div className="cell" data-position="4">Hi!</div>
-                    <div className="cell" data-position="5">Hi!</div>
+                    <a className="cell" onClick={this.moveHandler(3)}>{this.getBoardPosition(3)}</a>
+                    <a className="cell" onClick={this.moveHandler(4)}>{this.getBoardPosition(4)}</a>
+                    <a className="cell" onClick={this.moveHandler(5)}>{this.getBoardPosition(5)}</a>
                 </div>
                 <div className="row">
-                    <div className="cell" data-position="6">Hi!</div>
-                    <div className="cell" data-position="7">Hi!</div>
-                    <div className="cell" data-position="8">Hi!</div>
+                    <a className="cell" onClick={this.moveHandler(6)}>{this.getBoardPosition(6)}</a>
+                    <a className="cell" onClick={this.moveHandler(7)}>{this.getBoardPosition(7)}</a>
+                    <a className="cell" onClick={this.moveHandler(8)}>{this.getBoardPosition(8)}</a>
                 </div>
             </div>
         );
