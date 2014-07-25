@@ -75,7 +75,7 @@ gulp.task('rebuild:mainjs', function(cb){
     return runSequence('build:mainjs', 'build:html', cb);
 });
 
-gulp.task('watch:mainjs', function(cb){
+gulp.task('watch:mainjs', ['build'], function(cb){
     return gulp.watch(
         ['./app/js/**/*.{js,jsx}', './lib/*.js'],
         ['rebuild:mainjs']);
