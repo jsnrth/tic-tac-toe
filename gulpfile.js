@@ -23,7 +23,10 @@ gulp.task('bower', function() {
 });
 
 gulp.task('build:libs', function(){
-    return gulp.src('./bower_components/react/react.min.js')
+    return browserify()
+        .require('./bower_components/react/react.min.js', {expose: 'react'})
+        .bundle()
+        .pipe(source('libs.js'))
         .pipe(gulp.dest('./dist'));
 });
 
@@ -31,6 +34,7 @@ gulp.task('build:js', function(){
     return browserify({
         entries: ['./app/js/main.js'],
         extensions: ['.jsx']})
+        .external('react')
         .transform(reactify)
         .transform(uglifyify)
         .bundle()
