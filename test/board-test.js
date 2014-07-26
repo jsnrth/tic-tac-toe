@@ -51,16 +51,6 @@ describe('Board', function(){
             assert.equal(pla1, Board.getWinner(board));
         });
 
-        it('cannot have more than one winning combo', function(){
-            assert.throws(
-                function(){
-                    var board = [pla1, pla1, pla1, pla1, pla1, pla1, pla1, pla1, pla1];
-                    return Board.getWinner(board);
-                },
-                /More than one winning combination is not allowed/
-            );
-        });
-
         it('cannot have more than one winner', function(){
             assert.throws(
                 function(){
