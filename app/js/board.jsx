@@ -1,14 +1,10 @@
+"use strict";
+
 var React = require('react');
 
 module.exports = React.createClass({
-    displayName: 'Board',
-
-    getBoard: function(){
-        return this.props.board;
-    },
-
     getBoardPosition: function(index){
-        return this.getBoard()[index];
+        return this.props.board[index];
     },
 
     moveHandler: function(position){
