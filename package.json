@@ -3,9 +3,10 @@
   "private":true,
   "dependencies":{
     "body-parser":"",
+    "browser-request":"",
     "express":"",
     "morgan":"",
-    "browser-request":""
+    "q":""
   },
   "devDependencies":{
     "browserify":"",

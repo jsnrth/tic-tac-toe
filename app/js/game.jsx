@@ -1,9 +1,11 @@
+"use strict";
+
 var React = require('react');
 var Board = require('./board');
 var Banner = require('./banner');
 var Chooser = require('./chooser');
 var Game = require('../../lib/game');
-var request = require('browser-request');
+var MovesApi = require('../../lib/moves-api');
 
 module.exports = React.createClass({
     getInitialState: function(){
@@ -56,19 +58,9 @@ module.exports = React.createClass({
     },
 
     nextMove: function(){
-        if(this.isCurrentPlayerComputer()){
-            var handler = (function(component){
-                return function(err, response, data){
-                    var bestMove = data.bestMove;
-                    component.handleMove(bestMove);
-                }
-            }(this));
-            request.post({
-                uri: '/api/best-move',
-                body: JSON.stringify(this.state.game),
-                json: true},
-                handler);
-        }
+        if(this.isCurrentPlayerComputer())
+            MovesApi.fetchBestMove(this.state.game)
+                .then(this.handleMove);
     },
 
     render: function(){
