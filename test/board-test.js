@@ -1,3 +1,5 @@
+"use strict";
+
 var assert = require('assert');
 var Board = require('../lib/board');
 
