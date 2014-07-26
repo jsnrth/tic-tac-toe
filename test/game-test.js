@@ -6,6 +6,7 @@ describe('Game', function(){
         var game = Game.newGame();
         assert.deepEqual(game.board, [null, null, null, null, null, null, null, null, null]);
         assert.equal(game.player, 'x');
+        assert.equal(game.opponent, 'o');
         assert.equal(game.moves, 9);
         assert.equal(game.winner, null);
     });
@@ -15,6 +16,7 @@ describe('Game', function(){
         var updatedGame = Game.move(game, 1);
         assert.deepEqual(updatedGame.board, [null, 'x', null, null, null, null, null, null, null]);
         assert.equal(updatedGame.player, 'o');
+        assert.equal(updatedGame.opponent, 'x');
         assert.equal(updatedGame.moves, 8);
         assert.equal(game.winner, null);
     });
@@ -47,6 +49,7 @@ describe('Game', function(){
                 var game = Game.newGame();
                 game.board = ['x', 'x', 'x', 'o', 'o', 'x', 'o', 'o', null];
                 game.player = 'x';
+                game.opponent = 'o';
                 Game.move(game, 8);
             },
             /Game has already been won/
