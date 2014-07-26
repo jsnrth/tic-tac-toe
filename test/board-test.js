@@ -139,7 +139,12 @@ describe('Board', function(){
         });
     });
 
-    describe('Remaining moves', function(){
+    describe('Moves', function(){
+        it('lists all available moves', function(){
+            assert.deepEqual([0,1,2,3,4,5,6,7,8], Board.availableMoves([null, null, null, null, null, null, null, null, null]));
+            assert.deepEqual([1,4], Board.availableMoves(['x', null, 'o', 'x', null, 'x', 'o', 'x', 'o']));
+        });
+
         it('counts remaining moves', function(){
             assert.equal(9, Board.remainingMoves([null, null, null, null, null, null, null, null, null]));
             assert.equal(2, Board.remainingMoves(['x', null, 'o', 'x', null, 'x', 'o', 'x', 'o']));
