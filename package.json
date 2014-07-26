@@ -4,7 +4,8 @@
   "dependencies":{
     "body-parser":"",
     "express":"",
-    "morgan":""
+    "morgan":"",
+    "browser-request":""
   },
   "devDependencies":{
     "browserify":"",

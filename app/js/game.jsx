@@ -3,6 +3,7 @@ var Board = require('./board');
 var Banner = require('./banner');
 var Chooser = require('./chooser');
 var Game = require('../../lib/game');
+var request = require('browser-request');
 
 module.exports = React.createClass({
     getInitialState: function(){
@@ -21,7 +22,7 @@ module.exports = React.createClass({
         this.setState({
             playerX: (humans.playerX ? 'human' : 'computer'),
             playerO: (humans.playerO ? 'human' : 'computer'),
-        });
+        }, this.nextMove);
     },
 
     getBoard: function(){
@@ -37,7 +38,37 @@ module.exports = React.createClass({
     },
 
     handleMove: function(position){
-        this.setState({game: Game.move(this.state.game, position)});
+        this.setState({game: Game.move(this.state.game, position)}, this.nextMove);
+    },
+
+    getCurrentPlayer: function(){
+        return this.state.game.player;
+    },
+
+    isCurrentPlayerComputer: function(){
+        var currentPlayer = this.getCurrentPlayer();
+        if(currentPlayer == 'x' && this.state.playerX == 'computer')
+            return true;
+        else if(currentPlayer == 'o' && this.state.playerO == 'computer')
+            return true;
+        else
+            return false;
+    },
+
+    nextMove: function(){
+        if(this.isCurrentPlayerComputer()){
+            var handler = (function(component){
+                return function(err, response, data){
+                    var bestMove = data.bestMove;
+                    component.handleMove(bestMove);
+                }
+            }(this));
+            request.post({
+                uri: '/api/best-move',
+                body: JSON.stringify(this.state.game),
+                json: true},
+                handler);
+        }
     },
 
     render: function(){
