@@ -37,12 +37,7 @@ module.exports = React.createClass({
     },
 
     handleMove: function(position){
-        try {
-            this.setState({game: Game.move(this.state, position)});
-        }
-        catch(e) {
-            console.warn("Ignoring move: " + e.message);
-        }
+        this.setState({game: Game.move(this.state.game, position)});
     },
 
     render: function(){
