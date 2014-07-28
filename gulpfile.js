@@ -56,7 +56,7 @@ gulp.task('build:html', function(){
         .pipe(usemin({
             css: [rev()],
             jslib: [rev()],
-            jsapp: [rev()]
+            jsmain: [rev()]
         }))
         .pipe(gulp.dest('./dist'));
 });
