@@ -5,30 +5,44 @@ var Game = require('../lib/game');
 var Player = require('../lib/computer-player');
 
 describe('Computer vs Computer', function(){
-    it('will choose the winning move', function(){
+    it('will choose the winning move', function(done){
         var game = Game.newGame();
         game.board = ['x', 'x', null, 'o', null, 'o', null, null, null];
         assert.equal(game.player, 'x');
-        assert.equal(Player.getMove(game), 2);
+        Player.getMove(game).then(function(move){
+            assert.equal(move, 2);
+            done();
+        })
+        .fail(done);
     });
 
-    it('will choose to block the opponent from winning', function(){
+    it('will choose to block the opponent from winning', function(done){
         var game = Game.newGame();
         game.board = ['x', null, null, 'o', 'o', null, 'x', null, null];
         assert.equal(game.player, 'x');
-        assert.equal(Player.getMove(game), 5);
+        Player.getMove(game).then(function(move){
+            assert.equal(move, 5);
+            done();
+        })
+        .fail(done);
     });
 
-    it('will always tie', function(){
-        for(var i = 1; i <= 5; i++) {
-            var game = Game.newGame();
-            var move;
-            while(game.winner == null && game.moves > 0){
-                move = Player.getMove(game);
-                game = Game.move(game, move);
+    it('will tie a new game', function(done){
+        this.timeout(5000);
+        var play = function(game){
+            if(game.winner || game.moves === 0){
+                assert.equal(game.winner, null, game.winner + ' won, should have tied');
+                assert.equal(game.moves, 0, game.moves + ' moves left, should be none');
+                done();
             }
-            assert.equal(game.winner, null, game.winner + " won round " + i + ", should have tied");
-            assert.equal(game.moves, 0);
+            else {
+                Player.getMove(game)
+                    .then(function(move){
+                        play(Game.move(game, move));
+                    })
+                    .fail(done);
+            }
         }
+        play(Game.newGame());
     });
-})
+});
